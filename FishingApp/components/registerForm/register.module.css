@@ -1,0 +1,54 @@
+.container{
+    padding-top: 50px;
+    min-height: 100vh;
+    background-image: url('../../public/stock-photo-fishing-tackle-background-725918911.jpg');
+    background-size: cover;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: rgb(166, 43, 43, 0.2);
+    border-radius: 10px;
+    gap: 20px;
+    }
+    
+    .form__inputWrapper{
+    display: flex;
+    flex-direction: column;
+    }
+    
+    .form__label{
+    color: #fff;
+    }
+    
+    .form__input{
+    padding: 10px 10px;
+    font-size: 18px;
+    border-radius: 8px;
+    border: 2px solid rgba(166, 43, 43, 0.4);
+    }
+    
+    .form__button {
+        max-width: 100px;
+        background-color: #fff;
+        padding: 5px 15px;
+        font-size: 18px;
+        border-radius: 8px;
+        border: 2px solid rgba(166, 43, 43, 0.4);
+        transition: background-color 0.3s;
+    }
+    
+    .form__button:hover{
+        cursor: pointer;
+        background-color: #f0f0f0; /* Optional: Change background color on hover */
+    }
+    
+    .form__buttonWrapper{
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+    }

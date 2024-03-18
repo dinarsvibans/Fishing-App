@@ -1,0 +1,36 @@
+.inputDiv{
+    display: flex;
+    flex-direction: column;
+}
+
+.form{
+    max-width: 600px;
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    background-color: rgba(163, 163, 163, 0.068);
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.input{
+    padding: 5px 10px;
+}
+
+.required{
+    color: rgb(255, 94, 0);
+}
+
+.submit{
+    max-width: 150px;
+    align-self: center;
+    width: 100%;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+.submit:hover{
+    cursor: pointer;
+}

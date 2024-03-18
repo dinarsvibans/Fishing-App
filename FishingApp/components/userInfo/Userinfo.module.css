@@ -1,0 +1,19 @@
+.fishGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+}
+
+.fishCell {
+  position: relative; /* Make sure .fishCell is relatively positioned */
+  width: 100%; /* Take full width of cell */
+  aspect-ratio: 1/1; /* Maintain aspect ratio */
+}
+
+.imageWrapper {
+  position: absolute; /* Position the image absolutely */
+  top: 0;
+  left: 0;
+  width: 100%; /* Take full width of parent .fishCell */
+  height: 100%; /* Take full height of parent .fishCell */
+}

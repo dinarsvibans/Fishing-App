@@ -5,7 +5,8 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import style from './Userinfo.module.css';
 
-type UserType = {
+export type UserType = {
+  _id?: string;
   name: string;
   surname: string;
   email: string;
@@ -61,18 +62,15 @@ const UserInfo = () => {
       <h2>Last catches</h2>
       <div className={style.fishGrid}>
         {userInfo?.fishes.map((fish, index) => (
-         <div className={style.fishCell} key={index}>
-       
-           <Image
-             src={fish.photo}
-             alt="Fish"
-             fill
-             priority
-             objectFit="cover"
-           />
-         
-       </div>
-       
+          <div className={style.fishCell} key={index}>
+            <Image
+              src={fish.photo}
+              alt="Fish"
+              fill
+              priority
+              objectFit="cover"
+            />
+          </div>
         ))}
       </div>
     </div>

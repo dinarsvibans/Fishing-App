@@ -14,7 +14,8 @@ const NavBar = () => {
     <nav className={style.navbar}>
       {!session && (
         <>
-          <Link href={'/'}>Login</Link>
+        <Link href={'/'}>Home</Link>
+          <Link href={'/login'}>Login</Link>
           <Link href={'/register'}>Register</Link>
         </>
       )}

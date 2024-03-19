@@ -62,14 +62,15 @@ const UserInfo = () => {
       <div className={style.fishGrid}>
         {userInfo?.fishes.map((fish, index) => (
          <div className={style.fishCell} key={index}>
-         <div className={style.imageWrapper}>
+       
            <Image
              src={fish.photo}
              alt="Fish"
-             layout="fill"
-             objectFit="contain"
+             fill
+             priority
+             objectFit="cover"
            />
-         </div>
+         
        </div>
        
         ))}

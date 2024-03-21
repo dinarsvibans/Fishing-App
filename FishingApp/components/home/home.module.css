@@ -1,0 +1,41 @@
+.container{
+    max-width: 900px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+  }
+
+.card{
+    display: inline-flex;
+    flex-direction: column;
+    border: 1px solid gray;
+    align-items: center;
+    padding: 20px;
+    max-width: 600px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+    border-radius: 20px;
+    width: 100%;
+}
+
+.cardImage {
+    position: relative;
+    width: 100%;
+    border-radius: 20px;
+    aspect-ratio: 1/1;
+    z-index: 4;
+  }
+
+  .fishGrid {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+   
+    align-items:  center;
+    width: 100%; 
+  }
+  
+
+  .image{
+    border-radius: 20px;
+  }

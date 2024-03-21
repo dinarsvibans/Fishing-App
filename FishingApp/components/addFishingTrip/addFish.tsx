@@ -4,36 +4,39 @@ import { useState, ChangeEvent } from 'react';
 import style from './addFish.module.css';
 import { getSession, useSession } from 'next-auth/react';
 
-interface Fish {
+export interface Fish {
   fishName: string;
   fishLength: string;
-  fishweight: string;
+  fishWeight: string;
   fishingRodName: string;
   fishingRodLength: string;
   fishingRodTest: string;
   biteName: string;
   fishingLineType: string;
   photo: string;
+  user?:string;
+  fisherManName?:string;
+  createdAt?:string;
 }
 
 const AddFish = () => {
   const { data: session } = useSession();
-  const email = session?.user?.email;
-  console.log('session', session);
+  const userId = (session?.user as { _id?: string })?._id ?? '';
+  console.log('userId',userId)
+  console.log('sessionn', session);
   const [formState, setFormState] = useState<Fish>({
     fishName: '',
     fishLength: '',
-    fishweight: '',
+    fishWeight: '',
     fishingRodName: '',
     fishingRodLength: '',
     fishingRodTest: '',
     biteName: '',
     fishingLineType: '',
     photo: '',
+    
   });
 
-  //console.log('formstate11', formState);
-  //console.log(email)
   const handleInutChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
@@ -68,7 +71,7 @@ const AddFish = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ formState, email }),
+        body: JSON.stringify({ formState, userId }),
       });
 
       if (res.ok) {
@@ -130,7 +133,7 @@ const AddFish = () => {
             className={style.input}
             type="number"
             step="0.01"
-            id="fishweight"
+            id="fishWeight"
             onChange={handleInutChange}
           />
         </div>

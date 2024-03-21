@@ -71,7 +71,7 @@ const Register = () => {
       if (res.ok) {
         setRegisterDetails(initialDetails);
         setError('');
-        router.push('/');
+        router.push('/login');
       }
     } catch (error) {
       console.log('Error accured during registration', error);

@@ -5,10 +5,6 @@ import { redirect } from 'next/navigation';
 import AllUsersInfo from '../../components/home/home';
 
 export default async function Home() {
-  const session = await getServerSession(authOptions);
-  if (session) {
-    redirect('/dashboard');
-  }
 
   return (
     <div>

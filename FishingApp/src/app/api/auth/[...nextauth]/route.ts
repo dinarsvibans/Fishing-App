@@ -2,14 +2,13 @@ import NextAuth from 'next-auth/next';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { connectMongoDb } from '../../../../../lib/mongodb';
 import User from '../../../../../models/user';
-import bcrypt from 'bcryptjs'
+import bcrypt from 'bcryptjs';
 
 interface IUser {
-  email: string,
-  password: string
+  _id: string;
+  email: string;
+  password: string;
 }
-
-
 
 export const authOptions = {
   providers: [
@@ -17,28 +16,26 @@ export const authOptions = {
       name: "credentials",
       credentials: {},
       async authorize(credentials){
-        const { email, password } = <IUser>credentials
+        const { email, password } = <IUser>credentials;
         try {
-          await connectMongoDb()
-          const user = await User.findOne({email})
+          await connectMongoDb();
+          const user = await User.findOne({email});
 
           if(!user){
-            return null
+            return null;
           }
 
-          const passwordsMatch = await bcrypt.compare(password, user.password)
+          const passwordsMatch = await bcrypt.compare(password, user.password);
 
           if(!passwordsMatch){
             return null;
           }
-          console.log(user)
-          return user
+          console.log(user);
+          return user;
 
         } catch (error) {
-          console.log(error)
+          console.log(error);
         }
-
-      
       },
     }),
   ],
@@ -46,8 +43,22 @@ export const authOptions = {
     strategy: 'jwt' as const,
   },
   secret: process.env.NEXTAUTH_SECRET,
-  pages:{
+  pages: {
     signIn: '/',
+  },
+  callbacks: {
+    session: async ({ session, token }: { session: any; token: any }) => {
+      if (session?.user) {
+        session.user._id = token.sub;
+      }
+      return session;
+    },
+    jwt: async ({ user, token }: { user: any; token: any }) => {
+      if (user) {
+        token.sub = user._id;
+      }
+      return token;
+    },
   },
 };
 

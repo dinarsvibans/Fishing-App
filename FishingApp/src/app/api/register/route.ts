@@ -11,7 +11,6 @@ export async function POST(req: NextRequest) {
     console.log(hashedPassword);
     await connectMongoDb();
 
-    // Explicitly set 'fishes' field to an empty array
     await User.create({ name, surname, email, password: hashedPassword, fishes});
 
     console.log({ name: name, surname: surname, email: email, password: password, confirm_password: confirmPassword, fishes: fishes});

@@ -1,22 +1,22 @@
-'use client'
+'use client';
 
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import axios from 'axios';
-import { UserType } from '../userInfo/UserInfo';
+import style from './home.module.css';
+import RealtiveTime from '../../utils/relativeTime';
+
+import { Fish } from '../addFishingTrip/addFish';
 
 const AllUsersInfo = () => {
-  const [usersInfo, setUsersInfo] = useState<UserType[] | null>(null);
-
+  const [latestPosts, setLatestPosts] = useState<Fish[] | null>(null);
+  console.log(latestPosts);
   useEffect(() => {
     const fetchAllUsers = async () => {
       try {
-        const res = await axios.get('http://localhost:3000/api/allUsers');
-        console.log(res.data)
-        setUsersInfo(res.data);
-        console.log(usersInfo); 
-        console.log('test')// Log the updated usersInfo
+        const res = await axios.get('http://localhost:3000/api/latestPosts');
+        setLatestPosts(res.data);
       } catch (error) {
         console.error('Error fetching all users:', error);
       }
@@ -26,16 +26,31 @@ const AllUsersInfo = () => {
   }, []);
 
   return (
-    <div>
-      {/* Render your usersInfo here */}
-      {usersInfo && usersInfo.map((user) => (
-        <div key={user._id}>
-          {/* Render user information */}
-          <p>{user.name}</p>
-          <p>{user.email}</p>
-          {/* You can render other user information as needed */}
-        </div>
-      ))}
+    <div className={style.container}>
+      <div className={style.fishGrid}>
+        {latestPosts &&
+          latestPosts.map((post, index) => (
+            <div key={index} className={style.card}>
+              <div>
+                <span className={style.postAuthor}>{post.fisherManName}</span>
+                {' '}
+                {post.createdAt && (<span>Posted {RealtiveTime(new Date(post.createdAt))}</span>)}
+              </div>
+
+              <div className={style.cardImage}>
+                <Image
+                  src={post.photo}
+                  alt="Fish"
+                  fill
+                  priority
+                  objectFit="cover"
+                  className={style.image}
+                />
+              </div>
+              <span>{post.fishWeight} KG and {post.fishLength}{' '}CM</span>
+            </div>
+          ))}
+      </div>
     </div>
   );
 };

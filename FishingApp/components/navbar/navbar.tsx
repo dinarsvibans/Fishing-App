@@ -14,13 +14,14 @@ const NavBar = () => {
     <nav className={style.navbar}>
       {!session && (
         <>
-        <Link href={'/'}>Home</Link>
+          <Link href={'/'}>Home</Link>
           <Link href={'/login'}>Login</Link>
           <Link href={'/register'}>Register</Link>
         </>
       )}
       {session && (
         <>
+          <Link href={'/'}>Home</Link>
           <Link href={'/dashboard'}>Dashboard</Link>
           <Link href={'/dashboard/addfish'}>Add fish</Link>
           <div className={style.logotAndUsername}>

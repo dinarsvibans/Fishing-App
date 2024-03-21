@@ -2,6 +2,7 @@
 
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
+import { Fish } from '../addFishingTrip/addFish';
 import Image from 'next/image';
 import style from './Userinfo.module.css';
 
@@ -11,35 +12,27 @@ export type UserType = {
   surname: string;
   email: string;
   password: string;
-  fishes: Array<{
-    fishName: string;
-    fishLength: string;
-    fishWeight: string;
-    fishingRodName: string;
-    fishingRodLength: string;
-    fishingRodTest: string;
-    biteName: string;
-    fishingLineType: string;
-    photo: string;
-  }>;
 };
 
 const UserInfo = () => {
   const { data: session } = useSession();
+  
   const [userInfo, setUserInfo] = useState<UserType | null>(null);
-  console.log(userInfo);
+  const [fishInfo, setFishInfo] = useState<Fish[] | null>(null)
+  console.log('userInfo',userInfo);
+  console.log('fishInfo',fishInfo);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const email = session?.user?.email;
-        console.log(email);
-        if (email) {
+        const userId = (session?.user as { _id?: string })?._id ?? '';
+        console.log('userId',userId);
+        if (userId) {
           const res = await fetch(`api/userinfo`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ email }),
+            body: JSON.stringify({ userId }),
           });
 
           if (!res.ok) {
@@ -47,7 +40,8 @@ const UserInfo = () => {
           }
 
           const data = await res.json();
-          setUserInfo(data.user);
+          setUserInfo(data.userInfo);
+          setFishInfo(data.fishes)
         }
       } catch (error) {
         console.error('Error fetching user information:', error);
@@ -61,7 +55,7 @@ const UserInfo = () => {
     <div className="container">
       <h2>Last catches</h2>
       <div className={style.fishGrid}>
-        {userInfo?.fishes.map((fish, index) => (
+        {fishInfo && fishInfo.map((fish, index) => (
           <div className={style.fishCell} key={index}>
             <Image
               src={fish.photo}

@@ -1,5 +1,15 @@
 import mongoose, { Schema, models } from 'mongoose';
 
+
+interface IUser extends Document {
+  _id:string;
+  name: string;
+  surname: string;
+  email: string;
+  password: string;
+  // Add other properties as needed
+}
+
 const userSchema = new Schema(
   {
     name: {
@@ -18,47 +28,10 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    fishes: [{
-      fishName: {
-        type: String,
-        required: true,
-      },
-      fishLength: {
-        type: String,
-        required: true,
-      },
-      fishWeight: {
-        type: String,
-        required: true,
-      },
-      fishingRodName: {
-        type: String,
-        required: true,
-      },
-      fishingRodLength: {
-        type: String,
-        required: true,
-      },
-      fishingRodTest: {
-        type: String,
-        required: true,
-      },
-      biteName: {
-        type: String,
-        required: true,
-      },
-      fishingLineType: {
-        type: String,
-        required: true,
-      },
-      photo:{
-        type: String,
-        required: true,
-      }
-    }],
   },
   { timestamps: true }
 );
 
 const User = models.User || mongoose.model('User', userSchema);
-export default User;
+
+export default User
